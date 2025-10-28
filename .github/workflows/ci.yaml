@@ -67,6 +67,11 @@ jobs:
         black --check app
         isort --check-only app
 
+    - name: Security check (safety, bandit)
+      run: |
+        safety check
+        bandit -r app -f json -o bandit-report.json || true
+
     - name: Run tests
       env:
         DATABASE_URL: postgresql://postgres:postgres@localhost:5432/marketplace
