@@ -10,6 +10,7 @@
 """
 
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import select
@@ -58,9 +59,9 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.exception("Ошибка при создании таблиц: %s", e)
         raise
-    
+
     yield
-    
+
     # Shutdown
     logger.info("Приложение завершает работу")
 

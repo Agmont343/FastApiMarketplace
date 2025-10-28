@@ -208,7 +208,7 @@ async def assign_role(
     session: SessionDep,
     _: User = Depends(superadmin_required),
 ):
-    """Изменяет роль пользователя (только для суперадмина, нельзя назначить SUPERADMIN)."""
+    """Изменяет роль пользователя (только для суперадмина)."""
 
     if payload.role == UserRole.SUPERADMIN:
         raise HTTPException(

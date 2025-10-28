@@ -9,6 +9,20 @@ on:
 jobs:
   test-and-lint:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres" 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
 
     steps:
     - name: Checkout
@@ -22,7 +36,7 @@ jobs:
     - name: Install system deps
       run: |
         sudo apt-get update
-        sudo apt-get install -y libpq-dev
+        sudo apt-get install -y libpq-dev postgresql-client
 
     - name: Cache pip
       uses: actions/cache@v4
@@ -37,6 +51,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Prepare database
+      env:
+        PGPASSWORD: postgres
+      run: |
+        # create test database for the app
+        psql -h localhost -U postgres -c "CREATE DATABASE marketplace;"
+
     - name: Lint (flake8)
       run: |
         flake8 app
@@ -48,8 +69,7 @@ jobs:
 
     - name: Run tests
       env:
-        # lightweight SQLite for CI; your app imports aiosqlite in dev deps
-        DATABASE_URL: sqlite:///./test.db
+        DATABASE_URL: postgresql://postgres:postgres@localhost:5432/marketplace
         DEBUG: "true"
         SECRET_KEY: test_secret_key
         BACKEND_CORS_ORIGINS: http://localhost:3000
