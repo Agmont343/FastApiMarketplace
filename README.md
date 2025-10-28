@@ -2,7 +2,8 @@
 
 Небольшой учебный маркетплейс: FastAPI + SQLAlchemy Async + JWT (AuthX) + Alembic.
 
-[![CI](https://img.shields.io/github/actions/workflow/status/Agmont343/marketplace/docker.yml?label=CI&logo=github)](https://github.com/Agmont343/marketplace/actions/workflows/docker.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/Agmont343/marketplace/ci.yaml?label=CI&logo=github)](https://github.com/Agmont343/marketplace/actions/workflows/ci.yaml)
+[![Docker](https://img.shields.io/github/actions/workflow/status/Agmont343/marketplace/docker.yml?label=Docker&logo=docker)](https://github.com/Agmont343/marketplace/actions/workflows/docker.yml)
 ![Python](https://img.shields.io/badge/python-3.11+-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.118.0-009688?logo=fastapi&logoColor=white)
 ![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0-CA2C2C)
@@ -44,6 +45,13 @@ docker run -p 8000:8000 marketplace
 1) Установите `DEBUG=false` в `.env` — авто-`create_all` будет отключён.
 2) Сгенерируйте миграции:
 ```
+
+### Скриншоты
+
+Добавьте изображения в `assets/` и вставьте ссылки ниже.
+
+![Swagger UI](assets/swagger.png)
+![Главные эндпоинты](assets/endpoints.png)
 alembic revision --autogenerate -m "init"
 ```
 3) Примените миграции:
