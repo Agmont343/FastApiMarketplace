@@ -72,7 +72,7 @@ jobs:
         DATABASE_URL: postgresql://postgres:postgres@localhost:5432/marketplace
         DEBUG: "true"
         SECRET_KEY: test_secret_key
-        BACKEND_CORS_ORIGINS: http://localhost:3000
+        BACKEND_CORS_ORIGINS: "http://localhost:3000"
       run: |
         pytest -q
 

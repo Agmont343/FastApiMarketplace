@@ -38,8 +38,8 @@ class Settings(BaseSettings):
     SUPERADMIN_PASSWORD: str | None = None
 
     # --- CORS ---
-    BACKEND_CORS_ORIGINS: list[str] = Field(
-        default=[], description="Список разрешённых фронтенд URL"
+    BACKEND_CORS_ORIGINS: str = Field(
+        default="", description="Список разрешённых фронтенд URL через запятую"
     )
 
     @property
@@ -67,6 +67,15 @@ class Settings(BaseSettings):
         Используется для генерации JWT.
         """
         return timedelta(minutes=self.ACCESS_TOKEN_EXPIRE_MINUTES)
+
+    @property
+    def CORS_ORIGINS_LIST(self) -> list[str]:
+        """
+        Парсит BACKEND_CORS_ORIGINS в список URL.
+        """
+        if not self.BACKEND_CORS_ORIGINS:
+            return []
+        return [origin.strip() for origin in self.BACKEND_CORS_ORIGINS.split(",") if origin.strip()]
 
     model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
 

@@ -70,10 +70,10 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Marketplace API", lifespan=lifespan)
 
 # CORS middleware
-if settings.BACKEND_CORS_ORIGINS:
+if settings.CORS_ORIGINS_LIST:
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=settings.BACKEND_CORS_ORIGINS,
+        allow_origins=settings.CORS_ORIGINS_LIST,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
