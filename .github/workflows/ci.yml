@@ -139,9 +139,13 @@ jobs:
         docker build -t marketplace:latest .
     
     - name: Test Docker image
+      env:
+        DATABASE_URL: postgresql://test:test@localhost:5432/test
+        SECRET_KEY: test_secret_key_for_docker_test
+        DEBUG: "false"
       run: |
         docker run --rm \
-          -e DATABASE_URL="postgresql://test:test@localhost:5432/test" \
-          -e SECRET_KEY="test_secret_key_for_docker_test" \
-          -e DEBUG="false" \
+          -e DATABASE_URL="$DATABASE_URL" \
+          -e SECRET_KEY="$SECRET_KEY" \
+          -e DEBUG="$DEBUG" \
           marketplace:latest python -c "import app.main; print('Docker image works!')"
