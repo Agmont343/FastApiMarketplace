@@ -6,7 +6,6 @@ import pytest
 import sys
 import os
 
-# Добавляем корневую директорию проекта в PYTHONPATH
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app.models.user import User, UserRole
@@ -18,7 +17,6 @@ def test_user_model():
     user = User(email="test@example.com", hashed_password="hashed", role=UserRole.USER)
     assert user.email == "test@example.com"
     assert user.role == UserRole.USER
-    # is_active устанавливается по умолчанию в True через default=True в модели
 
 
 def test_product_model():
@@ -40,5 +38,5 @@ def test_user_role_enum():
 async def test_async_basic():
     """Базовый тест async функциональности."""
     import asyncio
-    await asyncio.sleep(0.01)  # Простая async операция
+    await asyncio.sleep(0.01)
     assert True

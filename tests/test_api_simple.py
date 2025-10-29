@@ -7,7 +7,6 @@ import sys
 import os
 from fastapi.testclient import TestClient
 
-# Добавляем корневую директорию проекта в PYTHONPATH
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app.main import app
@@ -40,9 +39,8 @@ def test_auth_endpoints_exist():
     """Тест наличия эндпоинтов аутентификации."""
     client = TestClient(app)
     
-    # Проверяем, что эндпоинты существуют (возвращают 422 вместо 404)
     response = client.post("/auth/register/")
-    assert response.status_code == 422  # Validation error, not 404
+    assert response.status_code == 422
     
     response = client.post("/auth/login")
-    assert response.status_code == 422  # Validation error, not 404
+    assert response.status_code == 422

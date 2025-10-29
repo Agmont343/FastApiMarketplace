@@ -18,24 +18,22 @@ class OrderItem(Base):
     product_id: Mapped[int] = mapped_column(
         ForeignKey("products.id"), nullable=False, index=True
     )
-    quantity: Mapped[int] = mapped_column(Integer, nullable=False)  # количество товара
+    quantity: Mapped[int] = mapped_column(Integer, nullable=False)
     price: Mapped[float] = mapped_column(
         Float, nullable=False
-    )  # общая стоимость позиции
+    )
 
-    # Связи
     order: Mapped["Order"] = relationship(back_populates="items")  # noqa: F821
     product: Mapped["Product"] = relationship(  # noqa: F821
         back_populates="order_items"
     )
 
-    # Ограничения на уровне базы
     __table_args__ = (
         CheckConstraint("quantity > 0", name="check_order_item_quantity_positive"),
         CheckConstraint("price >= 0", name="check_order_item_price_positive"),
         Index(
             "ix_order_items_order_product", "order_id", "product_id"
-        ),  # составной индекс
+        ),
     )
 
     def __repr__(self) -> str:

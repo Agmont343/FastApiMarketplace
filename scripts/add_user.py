@@ -11,7 +11,6 @@ from app.auth.utils import hash_password
 
 async def main():
     async with AsyncSessionLocal() as session:
-        # Создаём тестового пользователя
         new_user = User(
             email="testuser@example.com",
             hashed_password=hash_password("testpassword123"),
@@ -24,7 +23,6 @@ async def main():
 
         print(f"Создан пользователь: {new_user}")
 
-        # Проверка
         result = await session.execute(select(User))
         users = result.scalars().all()
         print("Все пользователи в базе:")

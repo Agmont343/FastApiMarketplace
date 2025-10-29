@@ -23,15 +23,15 @@ class Settings(BaseSettings):
     """
 
     # --- База данных ---
-    DATABASE_URL: PostgresDsn  # Проверка на корректный формат URL PostgreSQL
+    DATABASE_URL: PostgresDsn
 
     # --- Общие ---
-    DEBUG: bool = False  # Включает логирование SQL-запросов и debug-логи
+    DEBUG: bool = False
 
     # --- JWT / Auth ---
-    SECRET_KEY: str  # Секретный ключ для подписи токенов
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # Access токен по умолчанию 7 дней
-    REFRESH_TOKEN_EXPIRE_DAYS: int = 7  # Refresh токен по умолчанию 7 дней
+    SECRET_KEY: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7
+    REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
     # --- Bootstrap супер-админа ---
     SUPERADMIN_EMAIL: str | None = None
@@ -57,7 +57,6 @@ class Settings(BaseSettings):
             return raw.replace("postgresql://", "postgresql+asyncpg://", 1)
         if raw.startswith("postgres://"):
             return raw.replace("postgres://", "postgresql+asyncpg://", 1)
-        # По умолчанию просто добавляем драйвер, если схема нестандартная
         return raw if "+" in raw else raw.replace("://", "+asyncpg://", 1)
 
     @property
@@ -84,5 +83,4 @@ class Settings(BaseSettings):
     model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
 
 
-# Создаём глобальный объект с настройками для всего проекта
 settings = Settings()

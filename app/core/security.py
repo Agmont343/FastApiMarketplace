@@ -26,5 +26,4 @@ def role_required(allowed_roles: List[UserRole]):
     return dependency
 
 
-# Зависимость для администратора и суперадмина
 admin_required = role_required([UserRole.ADMIN, UserRole.SUPERADMIN])

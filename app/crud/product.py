@@ -15,8 +15,6 @@ from app.database import SessionDep
 from app.models.product import Product
 from app.schemas.product import ProductCreate, ProductUpdate
 
-# ------------------- ВСПОМОГАТЕЛЬНЫЕ -------------------
-
 
 async def get_product_by_id(session: SessionDep, product_id: int) -> Optional[Product]:
     """Возвращает продукт по ID или None."""
@@ -29,9 +27,6 @@ async def get_product_or_404(session: SessionDep, product_id: int) -> Product:
     """Возвращает продукт по ID или 404, если не найден."""
     product = await get_product_by_id(session, product_id)
     return await get_or_404(product, item_name=f"Продукт id={product_id}")
-
-
-# ------------------- CRUD -------------------
 
 
 async def create_product(session: SessionDep, product_data: ProductCreate) -> Product:

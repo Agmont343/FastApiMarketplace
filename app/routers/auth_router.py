@@ -29,11 +29,6 @@ from app.schemas.auth import UserLogin, UserRegister, UserResponse
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
 
-# =========================================================
-# ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
-# =========================================================
-
-
 def _create_and_set_access_cookie(
     user_id: int, response: Response, fresh: bool = False
 ) -> str:
@@ -48,11 +43,6 @@ def _create_and_set_refresh_cookie(user_id: int, response: Response) -> str:
     token = auth.create_refresh_token(uid=str(user_id))
     auth.set_refresh_cookies(token, response=response)
     return token
-
-
-# =========================================================
-# РОУТЫ АУТЕНТИФИКАЦИИ
-# =========================================================
 
 
 @router.post(
@@ -166,9 +156,6 @@ async def logout(response: Response):
     auth.unset_refresh_cookies(response)
     response.delete_cookie("logged_in")
     return {"msg": "logged out"}
-
-
-# ------------------- ЭНДПОИНТЫ ТОЛЬКО ДЛЯ АДМИНА -------------------
 
 
 class AssignRoleRequest(BaseModel):

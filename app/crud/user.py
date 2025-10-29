@@ -14,8 +14,6 @@ from app.crud.utils import get_or_404
 from app.database import SessionDep
 from app.models.user import User
 
-# ------------------- CRUD для пользователей -------------------
-
 
 async def get_user_by_id(session: SessionDep, user_id: int) -> Optional[User]:
     """Возвращает пользователя по ID или None, если не найден."""

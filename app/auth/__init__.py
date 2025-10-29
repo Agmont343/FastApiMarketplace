@@ -10,7 +10,6 @@ from authx import AuthX
 
 from .config import config
 
-# создаём глобальный объект auth для использования по проекту
 auth = AuthX(config=config)
 
 
@@ -21,4 +20,4 @@ def setup_auth(app):
     Args:
         app: экземпляр FastAPI
     """
-    auth.handle_errors(app)  # регистрируем глобальные обработчики ошибок аутентификации
+    auth.handle_errors(app)

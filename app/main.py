@@ -27,7 +27,6 @@ from app.routers import auth_router, orders, products
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Управление жизненным циклом приложения."""
-    # Startup
     try:
         if settings.DEBUG:
             logger.info("[DEV] Создаём таблицы через create_all...")
@@ -39,7 +38,6 @@ async def lifespan(app: FastAPI):
                 "DEBUG=False: пропускаем create_all (используйте Alembic миграции)"
             )
 
-        # Bootstrap супер-админа, если заданы креды
         if settings.SUPERADMIN_EMAIL and settings.SUPERADMIN_PASSWORD:
             async with AsyncSessionLocal() as session:
                 email = settings.SUPERADMIN_EMAIL.strip().lower()
@@ -62,14 +60,11 @@ async def lifespan(app: FastAPI):
 
     yield
 
-    # Shutdown
     logger.info("Приложение завершает работу")
 
 
-# Создаём FastAPI приложение
 app = FastAPI(title="Marketplace API", lifespan=lifespan)
 
-# CORS middleware
 if settings.CORS_ORIGINS_LIST:
     app.add_middleware(
         CORSMiddleware,
@@ -79,14 +74,11 @@ if settings.CORS_ORIGINS_LIST:
         allow_headers=["*"],
     )
 
-# Настройка аутентификации
 setup_auth(app)
 
-# Подключаем роутеры
 app.include_router(auth_router.router)
 app.include_router(products.router)
 app.include_router(orders.router)
 
 
-# Логируем запуск приложения
 logger.info(f"Marketplace API v1.0 starting (DEBUG={settings.DEBUG})")

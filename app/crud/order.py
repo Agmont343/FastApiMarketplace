@@ -20,8 +20,6 @@ from app.models.order_item import OrderItem
 from app.models.product import Product
 from app.schemas.order import OrderCreate
 
-# ------------------- ВСПОМОГАТЕЛЬНЫЕ -------------------
-
 
 def ensure_order_editable(order: Order) -> None:
     """Проверяет, что заказ можно редактировать (только в статусе CREATED)."""
@@ -109,9 +107,6 @@ async def get_order_or_404(
         session, order_id, options=options, for_update=for_update
     )
     return await get_or_404(order, item_name=f"Заказ id={order_id}")
-
-
-# ------------------- CRUD -------------------
 
 
 async def create_order(
