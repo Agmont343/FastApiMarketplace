@@ -24,6 +24,7 @@ jobs:
     
     - name: Extract metadata
       id: meta
+      if: ${{ secrets.DOCKER_USERNAME != '' && secrets.DOCKER_PASSWORD != '' }}
       uses: docker/metadata-action@v5
       with:
         images: ${{ secrets.DOCKER_USERNAME }}/marketplace
