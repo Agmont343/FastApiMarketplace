@@ -3,7 +3,7 @@
 Небольшой учебный маркетплейс: FastAPI + SQLAlchemy Async + JWT (AuthX) + Alembic.
 
 [![CI](https://img.shields.io/github/actions/workflow/status/Agmont343/FastApiMarketplace/ci.yml?label=CI&logo=github)](https://github.com/Agmont343/FastApiMarketplace/actions/workflows/ci.yml)
-[![Docker](https://img.shields.io/github/actions/workflow/status/Agmont343/FastApiMarketplace/docker.yml?label=Docker&logo=docker)](https://github.com/Agmont343/FastApiMarketplace/actions/workflows/docker.yml)
+[![Docker Hub Publish](https://img.shields.io/github/actions/workflow/status/Agmont343/FastApiMarketplace/docker.yml?label=Docker&logo=docker)](https://github.com/Agmont343/FastApiMarketplace/actions/workflows/docker.yml)
 ![Python](https://img.shields.io/badge/python-3.11+-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.118.0-009688?logo=fastapi&logoColor=white)
 ![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0-CA2C2C)
