@@ -140,4 +140,8 @@ jobs:
     
     - name: Test Docker image
       run: |
-        docker run --rm marketplace:latest python -c "import app.main; print('Docker image works!')"
+        docker run --rm \
+          -e DATABASE_URL="postgresql://test:test@localhost:5432/test" \
+          -e SECRET_KEY="test_secret_key_for_docker_test" \
+          -e DEBUG="false" \
+          marketplace:latest python -c "import app.main; print('Docker image works!')"
