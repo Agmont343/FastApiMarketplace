@@ -75,7 +75,11 @@ class Settings(BaseSettings):
         """
         if not self.BACKEND_CORS_ORIGINS:
             return []
-        return [origin.strip() for origin in self.BACKEND_CORS_ORIGINS.split(",") if origin.strip()]
+        return [
+            origin.strip()
+            for origin in self.BACKEND_CORS_ORIGINS.split(",")
+            if origin.strip()
+        ]
 
     model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
 
