@@ -45,13 +45,6 @@ docker run -p 8000:8000 marketplace
 1) Установите `DEBUG=false` в `.env` — авто-`create_all` будет отключён.
 2) Сгенерируйте миграции:
 ```
-
-### Скриншоты
-
-Добавьте изображения в `assets/` и вставьте ссылки ниже.
-
-![Swagger UI](assets/swagger.png)
-![Главные эндпоинты](assets/endpoints.png)
 alembic revision --autogenerate -m "init"
 ```
 3) Примените миграции:
@@ -60,6 +53,20 @@ alembic upgrade head
 ```
 
 Alembic использует синхронный DSN из `DATABASE_URL`, а приложение — async-DSN, генерируемый автоматически (`postgresql+asyncpg://...`).
+
+### Скриншоты
+
+#### Swagger UI - Аутентификация
+![Swagger Auth](assets/Swagger_auth.png)
+
+#### Swagger UI - Заказы
+![Swagger Orders](assets/Swagger_orders.png)
+
+#### Swagger UI - Продукты
+![Swagger Products](assets/Swagger_products.png)
+
+#### Swagger UI - Схемы
+![Swagger Schemas](assets/Swagger_schemas.png)
 
 ### Пример .env
 ```
