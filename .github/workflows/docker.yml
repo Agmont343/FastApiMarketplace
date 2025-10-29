@@ -35,12 +35,24 @@ jobs:
           type=raw,value=latest,enable={{is_default_branch}}
     
     - name: Build and push Docker image
+      if: ${{ secrets.DOCKER_USERNAME != '' && secrets.DOCKER_PASSWORD != '' }}
       uses: docker/build-push-action@v5
       with:
         context: .
-        platforms: linux/amd64,linux/arm64
-        push: ${{ secrets.DOCKER_USERNAME != '' && secrets.DOCKER_PASSWORD != '' }}
+        platforms: linux/amd64
+        push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+    
+    - name: Build only (no push) if no credentials
+      if: ${{ secrets.DOCKER_USERNAME == '' || secrets.DOCKER_PASSWORD == '' }}
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        platforms: linux/amd64
+        push: false
+        tags: marketplace:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
